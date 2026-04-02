@@ -93,3 +93,60 @@ public:
         return false;
     }
 };
+
+int main() {
+    setlocale(LC_ALL, "");
+    Hotel hotel;
+    hotel.addRoom(101, "STD");
+    hotel.addRoom(102, "Superior");
+    hotel.addRoom(103, "Deluxe");
+    hotel.addRoom(104, "Deluxe");
+    hotel.addRoom(105, "Suite");
+
+    int choice;
+    while (true) {
+        cout << "\n=== Booking ===" << endl;
+        cout << "1. Показать свободные комнаты" << endl;
+        cout << "2. Забронировать комнату" << endl;
+        cout << "3. Отменить бронирование" << endl;
+        cout << "4. Выход" << endl;
+        cout << "Выбор: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            hotel.showAvailableRooms();
+        }
+        else if (choice == 2) {
+            string name;
+            int room;
+            cout << "\nУкажите своё имя: ";
+            cin >> name;
+            cout << "Укажите желаемый номер комнаты: ";
+            cin >> room;
+
+            if (hotel.bookRoom(name, room)) {
+                cout << "Комната " << room << " успешно забронирована для " << name << endl;
+            }
+            else {
+                cout << "Комната " << room << " занята или не существует!" << endl;
+            }
+        }
+        else if (choice == 3) {
+            int room;
+            cout << "\nУкажите номер для отмены бронирования: ";
+            cin >> room;
+            if (hotel.cancelBooking(room)) {
+                cout << "Бронирование комнаты " << room << " отменено!" << endl;
+            }
+            else {
+                cout << "Бронирование комнаты " << room << " не найдено!" << endl;
+            }
+        }
+        else if (choice == 4) {
+            break;
+        }
+        else {
+            cout << "Неверный ввод" << endl;
+        }
+    }
+}
